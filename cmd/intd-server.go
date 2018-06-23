@@ -16,7 +16,7 @@ func main() {
 	var host = flag.String("host", "localhost", "The hostname to listen for requests on")
 	var port = flag.Int("port", 8080, "The port number to listen for requests on")
 
-	var dsn = flag.String("dsn", "localhost:6379", "The data source name (dsn) for connecting to the Redis engine.")
+	var dsn = flag.String("dsn", "redis://localhost:6379", "The data source name (dsn) for connecting to the Redis engine.")
 	var last = flag.Int("set-last-int", 0, "Set the last known integer.")
 	var offset = flag.Int("set-offset", 0, "Set the offset used to mint integers.")
 	var increment = flag.Int("set-increment", 0, "Set the increment used to mint integers.")

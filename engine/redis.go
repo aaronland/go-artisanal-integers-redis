@@ -23,6 +23,8 @@ func NewRedisEngine(dsn string) (*RedisEngine, error) {
 		MaxActive: 1000,
 		Dial: func() (redis.Conn, error) {
 
+			// https://www.iana.org/assignments/uri-schemes/prov/redis
+
 			c, err := redis.DialURL(dsn)
 
 			if err != nil {
