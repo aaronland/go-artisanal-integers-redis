@@ -134,3 +134,7 @@ func (eng *RedisEngine) NextInt() (int64, error) {
 
 	return i, nil
 }
+
+func (eng *RedisEngine) Close() error {
+     return nil
+}
