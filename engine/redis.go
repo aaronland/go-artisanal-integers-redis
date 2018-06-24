@@ -4,6 +4,7 @@ import (
 	"errors"
 	"github.com/aaronland/go-artisanal-integers"
 	"github.com/gomodule/redigo/redis"
+	_ "log"
 	"strconv"
 	"sync"
 )

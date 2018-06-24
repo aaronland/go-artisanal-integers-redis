@@ -2,6 +2,36 @@
 
 No, really.
 
+## Running as an AWS Lambda function
+
+First run the `lambda` target in the included Makefile. For example:
+
+```
+$> make lambda
+if test -d pkg; then rm -rf pkg; fi
+if test -d src/github.com/aaronland/go-artisanal-integers-redis; then rm -rf src/github.com/aaronland/go-artisanal-integers-redis; fi
+mkdir -p src/github.com/aaronland/go-artisanal-integers-redis/
+cp *.go src/github.com/aaronland/go-artisanal-integers-redis/
+cp -r engine src/github.com/aaronland/go-artisanal-integers-redis/
+cp -r vendor/* src/
+if test -f main; then rm -f main; fi
+if test -f deployment.zip; then rm -f deployment.zip; fi
+zip deployment.zip main
+  adding: main (deflated 66%)
+rm -f main
+```
+
+_Something something something create your AWS Elasticache cluster here..._
+
+_Something something something create your AWS Lambda function here..._
+
+Make sure the set the following environment variables:
+
+| Environment variable | Value |
+| --- | --- |
+| `ARTISANAL_DSN` | _Something like `redis://{HOST}.cache.amazonaws.com:6379` |
+| `ARTISANAL_PROTOCOL` | `lambda` |
+
 ## Performance
 
 #### Redis
