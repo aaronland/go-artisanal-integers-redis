@@ -3,3 +3,5 @@ pkg
 src
 !vendor/src
 bin
+deployment.zip
+main

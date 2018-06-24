@@ -30,3 +30,10 @@ fmt:
 bin:    self
 	if test ! -d bin; then mkdir bin; fi
 	@GOPATH=$(shell pwd) go build -o bin/intd-server cmd/intd-server.go
+
+lambda: self
+	if test -f main; then rm -f main; fi
+	if test -f deployment.zip; then rm -f deployment.zip; fi
+	@GOPATH=$(shell pwd) GOOS=linux go build -o main cmd/intd-server.go
+	zip deployment.zip main
+	rm -f main
