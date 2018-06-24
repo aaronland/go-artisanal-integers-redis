@@ -1,33 +1,26 @@
 package main
 
 import (
-	"flag"
-	"fmt"
-	"github.com/aaronland/go-artisanal-integers/client"
+	"github.com/aaronland/go-artisanal-integers/application"
 	"log"
+	"os"
 )
 
 func main() {
 
-	var proto = flag.String("protocol", "http", "...")
-	var host = flag.String("host", "localhost", "The hostname to listen for requests on")
-	var port = flag.Int("port", 8080, "The port number to listen for requests on")
+	flags := application.NewClientApplicationFlags()
 
-	flag.Parse()
-
-	address := fmt.Sprintf("%s:%d", *host, *port)
-
-	cl, err := client.NewArtisanalClient(*proto, address)
+	app, err := application.NewClientApplication()
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	i, err := cl.NextInt()
+	err = app.Run(flags)
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	log.Println(i)
+	os.Exit(0)	
 }

@@ -2,51 +2,39 @@ package server
 
 import (
 	"github.com/aaronland/go-artisanal-integers"
-	"log"
-	"net/http"
-	"strconv"
+	"github.com/aaronland/go-artisanal-integers/http"
+	_ "log"
+	gohttp "net/http"
+	gourl "net/url"
 )
 
 type HTTPServer struct {
 	artisanalinteger.Server
-	address string
+	url *gourl.URL
 }
 
-func NewHTTPServer(address string) (*HTTPServer, error) {
+func NewHTTPServer(u *gourl.URL, args ...interface{}) (*HTTPServer, error) {
+
+	u.Scheme = "http"
 
 	server := HTTPServer{
-		address: address,
+		url: u,
 	}
 
 	return &server, nil
 }
 
+func (s *HTTPServer) Address() string {
+	return s.url.String()
+}
+
 func (s *HTTPServer) ListenAndServe(service artisanalinteger.Service) error {
 
-	handler := func(rsp http.ResponseWriter, req *http.Request) {
+	mux, err := http.NewServeMux(service, s.url)
 
-		next, err := service.NextInt()
-
-		if err != nil {
-			http.Error(rsp, err.Error(), http.StatusBadRequest)
-			return
-		}
-
-		str_next := strconv.FormatInt(next, 10)
-
-		b := []byte(str_next)
-
-		rsp.Header().Set("Content-Type", "text/plain")
-		rsp.Header().Set("Content-Length", strconv.Itoa(len(b)))
-
-		rsp.Write(b)
+	if err != nil {
+		return err
 	}
 
-	log.Println("listening on", s.address)
-
-	mux := http.NewServeMux()
-	mux.HandleFunc("/", handler)
-
-	err := http.ListenAndServe(s.address, mux)
-	return err
+	return gohttp.ListenAndServe(s.url.Host, mux)
 }

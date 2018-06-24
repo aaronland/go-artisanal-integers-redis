@@ -5,17 +5,20 @@ self:   prep
 	if test -d src/github.com/aaronland/go-artisanal-integers; then rm -rf src/github.com/aaronland/go-artisanal-integers; fi
 	mkdir -p src/github.com/aaronland/go-artisanal-integers/
 	cp *.go src/github.com/aaronland/go-artisanal-integers/
+	cp -r application src/github.com/aaronland/go-artisanal-integers/
 	cp -r client src/github.com/aaronland/go-artisanal-integers/
 	cp -r engine src/github.com/aaronland/go-artisanal-integers/
+	cp -r http src/github.com/aaronland/go-artisanal-integers/
 	cp -r server src/github.com/aaronland/go-artisanal-integers/
 	cp -r service src/github.com/aaronland/go-artisanal-integers/
-	# if test -d vendor; then cp -r vendor/* src/; fi
+	cp -r utils src/github.com/aaronland/go-artisanal-integers/
+	cp -r vendor/* src/
 
 rmdeps:
 	if test -d src; then rm -rf src; fi 
 
 deps:
-	# @GOPATH=$(shell pwd) go get "github.com/facebookgo/grace/gracehttp"
+	@GOPATH=$(shell pwd) go get "github.com/whosonfirst/algnhsa"
 
 vendor-deps: rmdeps deps
 	if test ! -d src; then mkdir src; fi
@@ -25,11 +28,14 @@ vendor-deps: rmdeps deps
 	rm -rf src
 fmt:
 	go fmt *.go
+	go fmt application/*.go
 	go fmt client/*.go
 	go fmt cmd/*.go
 	go fmt engine/*.go
+	go fmt http/*.go
 	go fmt server/*.go
 	go fmt service/*.go
+	go fmt utils/*.go
 
 bin:    self
 	if test ! -d bin; then mkdir bin; fi

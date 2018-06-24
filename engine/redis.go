@@ -138,5 +138,5 @@ func (eng *RedisEngine) NextInt() (int64, error) {
 }
 
 func (eng *RedisEngine) Close() error {
-     return nil
+	return nil
 }
