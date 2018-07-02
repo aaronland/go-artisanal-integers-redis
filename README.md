@@ -29,7 +29,7 @@ Make sure the set the following environment variables:
 
 | Environment variable | Value |
 | --- | --- |
-| `ARTISANAL_DSN` | _Something like `redis://{HOST}.cache.amazonaws.com:6379` |
+| `ARTISANAL_DSN` | _Something like `redis://{HOST}.cache.amazonaws.com:6379`_ |
 | `ARTISANAL_PROTOCOL` | `lambda` |
 
 ## Performance
